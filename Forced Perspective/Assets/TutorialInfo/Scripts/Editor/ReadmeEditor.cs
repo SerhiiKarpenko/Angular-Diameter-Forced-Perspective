@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
-using System;
 using System.IO;
 using System.Reflection;
 
 [CustomEditor(typeof(Readme))]
 [InitializeOnLoad]
-public class ReadmeEditor : Editor
+public class ReadmeEditor : UnityEditor.Editor
 {
     static string s_ShowedReadmeSessionStateName = "ReadmeEditor.showedReadme";
     
