@@ -13,6 +13,8 @@ namespace Code_Base.Player_Scripts
 
         private float _radiusOfCollider;
         private bool _startScaling;
+        private Vector3 _startScaleOfItem;
+        private float _startDistanceBetweenItemAndPlayer;
 
         private void Start()
         {
@@ -48,7 +50,7 @@ namespace Code_Base.Player_Scripts
         {
             Vector3 positionWithOffsetOnY = new Vector3(
                 _cameraRayCaster.RaycastHitOnEnviro.point.x, 
-                _cameraRayCaster.RaycastHitOnEnviro.point.y + _radiusOfCollider, 
+                _cameraRayCaster.RaycastHitOnEnviro.point.y + _playerInteractions.ItemInInteraction.localScale.x / 2, 
                 _cameraRayCaster.RaycastHitOnEnviro.point.z);
             
             _playerInteractions.ItemInInteraction.position = positionWithOffsetOnY;
@@ -63,12 +65,12 @@ namespace Code_Base.Player_Scripts
             
             if (distanceBetweenFloorAndItem <= _radiusOfCollider)
             {
-                Vector3 positionToSet = _cameraRayCaster.RaycastHitOnEnviro.point + (_cameraRayCaster.RaycastHitOnEnviro.normal.normalized + Vector3.up) * _radiusOfCollider;
+                Vector3 positionToSet = _cameraRayCaster.RaycastHitOnEnviro.point + (_cameraRayCaster.RaycastHitOnEnviro.normal.normalized + Vector3.up) * _playerInteractions.ItemInInteraction.localScale.x / 2;
                 _playerInteractions.ItemInInteraction.position = positionToSet;
             }
             else
             {
-                Vector3 positionToSet = _cameraRayCaster.RaycastHitOnEnviro.point + _cameraRayCaster.RaycastHitOnEnviro.normal * _radiusOfCollider;
+                Vector3 positionToSet = _cameraRayCaster.RaycastHitOnEnviro.point + _cameraRayCaster.RaycastHitOnEnviro.normal * _playerInteractions.ItemInInteraction.localScale.x / 2;
                 _playerInteractions.ItemInInteraction.position = positionToSet;
             }
         }
@@ -76,6 +78,8 @@ namespace Code_Base.Player_Scripts
         private void OnOnItemPickedUp(Transform itemInInteraction)
         {
             _radiusOfCollider = itemInInteraction.GetComponent<SphereCollider>().radius;
+            _startScaleOfItem = itemInInteraction.localScale;
+            _startDistanceBetweenItemAndPlayer = GetDistance();
             _startScaling = true;
         }
 
@@ -84,7 +88,15 @@ namespace Code_Base.Player_Scripts
 
         private void ScaleByDistance()
         {
-            
+            float distanceBetweenItemAndPlayer = GetDistance() / (_startDistanceBetweenItemAndPlayer);
+
+            _playerInteractions.ItemInInteraction.localScale = new Vector3(
+                _startScaleOfItem.x * distanceBetweenItemAndPlayer,
+                _startScaleOfItem.y * distanceBetweenItemAndPlayer,
+                _startScaleOfItem.z * distanceBetweenItemAndPlayer);
         }
+
+        private float GetDistance() => 
+            Vector3.Distance(_cameraRayCaster.transform.position, _playerInteractions.ItemInInteraction.position);
     }
 }
