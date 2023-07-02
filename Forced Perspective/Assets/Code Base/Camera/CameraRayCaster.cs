@@ -6,14 +6,13 @@ namespace Code_Base.Camera
     {
         public RaycastHit Raycast;
         
-        [SerializeField] private float _rayLenght;
+        private void Update() => 
+            CastRay();
 
-        private void Update()
+        private void CastRay()
         {
             Ray ray = new Ray(transform.position, transform.forward);
             Physics.Raycast(ray, out Raycast);
-            
-            Debug.Log(Raycast.transform.name);
         }
     }
 }
