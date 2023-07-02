@@ -1,4 +1,5 @@
-﻿using Code_Base.Camera;
+﻿using System;
+using Code_Base.Camera;
 using Code_Base.Items;
 using UnityEngine;
 
@@ -6,12 +7,16 @@ namespace Code_Base.Player_Scripts
 {
     public class PlayerInteractions : MonoBehaviour
     {
+        public event Action<Transform> OnItemPickedUp;
+        public event Action OnItemDropped;
+        
+        [HideInInspector] public Transform ItemInInteraction;
         [SerializeField] private CameraRayCaster _cameraRayCaster;
 
         private IPickable _pickableItemInFocus;
         private IDroppable _droppable;
         private bool _itemPickedUp = false;
-        
+
         private void Update() => 
             OnPickupButton();
         
@@ -34,9 +39,11 @@ namespace Code_Base.Player_Scripts
             
             if (_pickableItemInFocus == null || _droppable == null)
                 return;
-            
+
+            ItemInInteraction = _cameraRayCaster.Raycast.transform;
             _pickableItemInFocus.Pickup(transform);
             _itemPickedUp = true;
+            OnItemPickedUp?.Invoke(ItemInInteraction);
         }
 
         private void DropItem()
@@ -45,12 +52,14 @@ namespace Code_Base.Player_Scripts
             Cleanup();
             
             _itemPickedUp = false;
+            OnItemDropped?.Invoke();
         }
 
         private void Cleanup()
         {
             _pickableItemInFocus = null;
             _droppable = null;
+            ItemInInteraction = null;
         }
     }
 }

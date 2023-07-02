@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 8597972366733347142}
   - component: {fileID: 864123888}
   - component: {fileID: 7796660758876132152}
+  - component: {fileID: 1533859764892624736}
   m_Layer: 0
   m_Name: First Person Character
   m_TagString: Untagged
@@ -162,6 +163,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebf27526db64ae7b4815c837b400b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemInInteraction: {fileID: 0}
+  _cameraRayCaster: {fileID: 7313409437927507636}
+--- !u!114 &1533859764892624736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8102764513121012201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a8d8c3a6fb28c4dbf18919f3827854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInteractions: {fileID: 7796660758876132152}
   _cameraRayCaster: {fileID: 7313409437927507636}
 --- !u!1001 &6147520538863028947
 PrefabInstance:
