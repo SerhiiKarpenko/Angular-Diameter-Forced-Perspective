@@ -17,3 +17,6 @@ E to pickup and drop items.
 # Gameplay video
 https://github.com/SerhiiKarpenko/Angular-Diameter-Forced-Perspective/assets/80330854/65195a3b-4ac3-49d8-b6b8-ea6cd1dde21b
 
+
+# Note 
+There is no code optimization and architecture in this project, it's just a prototype of a very interesting mechanic!
