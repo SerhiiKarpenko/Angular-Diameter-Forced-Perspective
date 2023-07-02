@@ -83,8 +83,12 @@ namespace Code_Base.Player_Scripts
             _startScaling = true;
         }
 
-        private void OnItemDropped() => 
+        private void OnItemDropped()
+        {
             _startScaling = false;
+            _startDistanceBetweenItemAndPlayer = 0;
+            _startScaleOfItem = Vector3.zero;
+        }
 
         private void ScaleByDistance()
         {
